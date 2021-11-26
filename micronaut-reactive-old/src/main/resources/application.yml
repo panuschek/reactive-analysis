@@ -1,0 +1,9 @@
+micronaut:
+  application:
+    name: micronautReactive
+r2dbc:
+  datasources:
+    default:
+      url: r2dbc:postgresql://localhost:5432/vehicle
+      username: vc
+      password: secret

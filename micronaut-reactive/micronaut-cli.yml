@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: de.pan.micronautreactive
+testFramework: junit
+sourceLanguage: kotlin
+buildTool: maven
+features: [annotation-api, app-name, data, data-r2dbc, http-client, junit, kotlin, kotlin-application, logback, maven, netty-server, postgres, r2dbc, reactor, reactor-http-client, readme, shade, testcontainers, yaml]
