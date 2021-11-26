@@ -6,7 +6,7 @@ import io.micronaut.data.annotation.MappedEntity
 
 @MappedEntity
 data class VehicleConfiguration(
-  @Id
+  @field:Id
   @GeneratedValue
   var vehicleConfigurationId: Long? = null,
   val createdAt: Long,
