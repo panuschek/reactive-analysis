@@ -1,3 +1,5 @@
 package de.pan.authorizationservice
 
-data class AuthorizationRequest()
+data class AuthorizationRequest(
+    val jwt: String
+)

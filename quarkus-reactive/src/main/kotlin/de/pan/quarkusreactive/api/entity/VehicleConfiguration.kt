@@ -1,4 +1,4 @@
-package de.pan.quarkusreactive.entity
+package de.pan.quarkusreactive.api.entity
 
 data class VehicleConfiguration(
   var vehicleConfigurationId: Long? = null,

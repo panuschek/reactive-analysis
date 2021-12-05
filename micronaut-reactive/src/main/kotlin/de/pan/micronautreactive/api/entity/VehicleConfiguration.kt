@@ -1,4 +1,4 @@
-package de.pan.micronautreactive.entity
+package de.pan.micronautreactive.api.entity
 
 import io.micronaut.data.annotation.GeneratedValue
 import io.micronaut.data.annotation.Id

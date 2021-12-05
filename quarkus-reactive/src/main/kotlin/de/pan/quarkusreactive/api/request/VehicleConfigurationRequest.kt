@@ -1,5 +1,8 @@
 package de.pan.quarkusreactive.api.request
 
-data class DataPoolRequest(
-    val countryId: Int
+import com.fasterxml.jackson.annotation.JsonProperty
+
+data class VehicleConfigurationRequest(
+    @field:JsonProperty("countryId")
+    val countryId: Int? = 0
 )

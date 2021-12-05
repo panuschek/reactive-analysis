@@ -1,11 +1,11 @@
-package de.pan.authenticationservice
+package de.pan.authorizationservice
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class AuthenticationServiceApplication
+class AuthorizationServiceApplication
 
 fun main(args: Array<String>) {
-	runApplication<AuthenticationServiceApplication>(*args)
+	runApplication<AuthorizationServiceApplication>(*args)
 }

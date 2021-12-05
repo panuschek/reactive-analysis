@@ -1,4 +1,4 @@
-package de.pan.authenticationservice
+package de.pan.authorizationservice
 
 data class AuthorizationEntitlement(
     val country_ids: List<Int>,

@@ -1,1 +1,5 @@
-
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/vehicle
+    username: vc
+    password: secret
