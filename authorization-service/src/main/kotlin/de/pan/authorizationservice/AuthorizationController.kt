@@ -1,6 +1,5 @@
 package de.pan.authorizationservice
 
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -9,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("api")
 class AuthorizationController {
     @GetMapping("authentication")
-    fun authorizationEntitlement(): ResponseEntity<String> {
-        Thread.sleep(75)
-        return ResponseEntity.ok("Ok")
+    fun authentication(): AuthorizationEntitlement {
+        Thread.sleep(1500)
+        return AuthorizationEntitlement("ok")
     }
 }

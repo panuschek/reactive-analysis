@@ -12,5 +12,5 @@ interface VechicleConfigurationRepository : ReactiveStreamsCrudRepository<Vehicl
   override fun findAll(): Flux<VehicleConfiguration>
 
   @Query("SELECT * FROM vehicle_configuration WHERE :countryId = ANY (country_ids)")
-  fun findByCountryIdsIn(countryId: Int): Flux<VehicleConfiguration>
+  fun findByCountryId(countryId: Int): Flux<VehicleConfiguration>
 }

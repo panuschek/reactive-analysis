@@ -8,3 +8,7 @@ r2dbc:
       url: r2dbc:postgresql://localhost:5432/vehicle
       username: vc
       password: secret
+
+logger:
+  levels:
+    de.pan.micronautreactive: ALL

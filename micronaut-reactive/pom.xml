@@ -14,7 +14,7 @@
   </parent>
 
   <properties>
-    <packaging>docker</packaging>
+    <packaging>jar</packaging>
     <jdk.version>11</jdk.version>
     <release.version>11</release.version>
     <micronaut.version>3.2.0</micronaut.version>

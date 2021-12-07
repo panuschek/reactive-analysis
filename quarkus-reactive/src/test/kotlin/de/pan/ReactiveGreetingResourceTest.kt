@@ -7,14 +7,4 @@ import org.junit.jupiter.api.Test
 
 @QuarkusTest
 class ReactiveGreetingResourceTest {
-
-    @Test
-    fun testHelloEndpoint() {
-        given()
-          .`when`().get("/hello")
-          .then()
-             .statusCode(200)
-             .body(`is`("Hello RESTEasy Reactive"))
-    }
-
 }

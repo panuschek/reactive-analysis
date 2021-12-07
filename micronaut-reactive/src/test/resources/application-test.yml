@@ -1,1 +1,14 @@
-r2dbc.datasources.default.url: r2dbc:tc:postgresql:///db?TC_IMAGE_TAG=12
+micronaut:
+  application:
+    name: micronautReactive
+r2dbc:
+  datasources:
+    default:
+      dialect: POSTGRES
+      url: r2dbc:postgresql://localhost:5432/vehicle
+      username: vc
+      password: secret
+
+logger:
+  levels:
+    de.pan.micronautreactive: ALL
