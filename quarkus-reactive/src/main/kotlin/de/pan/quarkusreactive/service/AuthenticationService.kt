@@ -7,7 +7,7 @@ import javax.ws.rs.GET
 import javax.ws.rs.Path
 
 @Path("/authentication")
-@RegisterRestClient
+@RegisterRestClient(configKey = "authentication-api")
 interface AuthenticationService {
     @GET
     fun authenticate(): Uni<AuthorizationEntitlement>
