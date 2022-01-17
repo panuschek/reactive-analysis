@@ -18,11 +18,11 @@ class VehicleConfigurationController(
     private val log = LoggerFactory.getLogger(VehicleConfigurationController::class.java)
 
     @PostMapping("vehicleconfigurations")
-    fun getVehicleConfigurations(@RequestBody request: VehicleConfigurationRequest): AuthorizationEntitlement {
+    fun getVehicleConfigurations(@RequestBody request: VehicleConfigurationRequest): List<VehicleConfiguration> {
         log.info("Handling request to /api/vehicleconfigurations")
 //        return authenticationService.authenticate()
-//        return vehicleConfigurationRepository.findByCountryId(request.countryId!!)
-        Thread.sleep(1500)
-        return AuthorizationEntitlement("Ok")
+        return vehicleConfigurationRepository.findByCountryId(request.countryId!!)
+//        Thread.sleep(1500)
+//        return AuthorizationEntitlement("Ok")
     }
 }

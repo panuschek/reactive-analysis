@@ -1,6 +1,7 @@
 package de.pan.quarkusreactive
 
 import de.pan.quarkusreactive.api.entity.AuthorizationEntitlement
+import de.pan.quarkusreactive.api.entity.VehicleConfiguration
 import de.pan.quarkusreactive.api.request.VehicleConfigurationRequest
 import de.pan.quarkusreactive.repository.VehicleConfigurationRepository
 import de.pan.quarkusreactive.service.AuthenticationService
@@ -23,9 +24,9 @@ class VehicleConfigurationController(
     @Path("vehicleconfigurations")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    fun vehicleConfigurations(request: VehicleConfigurationRequest): Uni<AuthorizationEntitlement> {
-        return authenticationService.authenticate()
-
+    fun vehicleConfigurations(request: VehicleConfigurationRequest): Uni<List<VehicleConfiguration>> {
+//        return authenticationService.authenticate()
+        return vehicleConfigurationRepository.findAll(request.countryId!!)
 //        return Uni.combine().all()
 //            .unis(authenticationService.authenticate(), vehicleConfigurationRepository.findAll(request.countryId!!))
 //            .combinedWith { t, u -> u }

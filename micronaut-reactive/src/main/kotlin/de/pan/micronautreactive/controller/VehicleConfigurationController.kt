@@ -1,6 +1,5 @@
 package de.pan.micronautreactive.controller
 
-import de.pan.micronautreactive.api.entity.AuthorizationEntitlement
 import de.pan.micronautreactive.api.entity.VehicleConfiguration
 import de.pan.micronautreactive.api.request.VehicleConfigurationRequest
 import de.pan.micronautreactive.repository.VechicleConfigurationRepository
@@ -10,10 +9,6 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Produces
 import reactor.core.publisher.Flux
-import reactor.core.publisher.Mono
-import reactor.core.publisher.toFlux
-import reactor.core.publisher.toMono
-import java.time.Duration
 
 @Controller("/api")
 class VehicleConfigurationController(
@@ -23,9 +18,10 @@ class VehicleConfigurationController(
 
   @Post("vehicleconfigurations")
   @Produces(MediaType.APPLICATION_JSON)
-  fun getVehicleConfigurations(request: VehicleConfigurationRequest): Mono<AuthorizationEntitlement> {
+  fun getVehicleConfigurations(request: VehicleConfigurationRequest): Flux<VehicleConfiguration> {
 //    return Mono.just(AuthorizationEntitlement("Ok"))
 //      .delayElement(Duration.ofMillis(1500))
-    return authenticationService.authenticate().toMono()
+    return vehicleConfigurationRepository.findByCountryId(request.countryId)
+//    return authenticationService.authenticate().toMono()
   }
 }
