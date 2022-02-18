@@ -4,11 +4,12 @@ import de.pan.quarkusreactive.api.entity.AuthorizationEntitlement
 import io.smallrye.mutiny.Uni
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient
 import javax.ws.rs.GET
+import javax.ws.rs.HeaderParam
 import javax.ws.rs.Path
 
-@Path("/authentication")
+@Path("/auth")
 @RegisterRestClient(configKey = "authentication-api")
-interface AuthenticationService {
+interface AuthorizationService {
     @GET
-    fun authenticate(): Uni<AuthorizationEntitlement>
+    fun auth(@HeaderParam("Authorization") authToken: String): Uni<AuthorizationEntitlement>
 }

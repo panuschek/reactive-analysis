@@ -8,7 +8,7 @@ import io.micronaut.data.repository.reactive.ReactiveStreamsCrudRepository
 import reactor.core.publisher.Flux
 
 @R2dbcRepository(dialect = Dialect.POSTGRES)
-interface VechicleConfigurationRepository : ReactiveStreamsCrudRepository<VehicleConfiguration, Long> {
+interface VehicleConfigurationRepository : ReactiveStreamsCrudRepository<VehicleConfiguration, Long> {
   override fun findAll(): Flux<VehicleConfiguration>
 
   @Query("SELECT * FROM vehicle_configuration WHERE :countryId = ANY (country_ids)")

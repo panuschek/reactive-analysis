@@ -1,13 +1,10 @@
 package de.pan.quarkusreactive
 
-import de.pan.quarkusreactive.api.entity.AuthorizationEntitlement
 import de.pan.quarkusreactive.api.entity.VehicleConfiguration
 import de.pan.quarkusreactive.api.request.VehicleConfigurationRequest
-import de.pan.quarkusreactive.repository.VehicleConfigurationRepository
-import de.pan.quarkusreactive.service.AuthenticationService
-import io.smallrye.mutiny.Uni
-import org.eclipse.microprofile.rest.client.inject.RestClient
-import java.time.Duration
+import de.pan.quarkusreactive.service.VehicleConfigurationService
+import io.smallrye.mutiny.Multi
+import org.jboss.resteasy.reactive.RestHeader
 import javax.ws.rs.Consumes
 import javax.ws.rs.POST
 import javax.ws.rs.Path
@@ -16,26 +13,32 @@ import javax.ws.rs.core.MediaType
 
 @Path("api")
 class VehicleConfigurationController(
-    private val vehicleConfigurationRepository: VehicleConfigurationRepository,
-    @RestClient
-    private val authenticationService: AuthenticationService
+    private val vehicleConfigurationService: VehicleConfigurationService
 ) {
     @POST
     @Path("vehicleconfigurations")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    fun vehicleConfigurations(request: VehicleConfigurationRequest): Uni<List<VehicleConfiguration>> {
-//        return authenticationService.authenticate()
-        return vehicleConfigurationRepository.findAll(request.countryId!!)
-//        return Uni.combine().all()
-//            .unis(authenticationService.authenticate(), vehicleConfigurationRepository.findAll(request.countryId!!))
-//            .combinedWith { t, u -> u }
-//            .onItem().transformToMulti { Multi.createFrom().iterable(it) }
-
-//         return Uni.createFrom()
-//             .item(AuthorizationEntitlement("Ok"))
-//             .onItem()
-//             .delayIt()
-//             .by(Duration.ofMillis(1500))
+    fun vehicleConfigurations(@RestHeader("Authorization") authToken: String, request: VehicleConfigurationRequest): Multi<VehicleConfiguration> {
+        return vehicleConfigurationService.getVehicleConfigurations(authToken, request.countryId!!)
     }
+
+//    @GET
+//    @Path("vehicleconfigurations")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    fun vehicleConfigurations(): Uni<AuthorizationEntitlement>? {
+////        return authenticationService.authenticate()
+////        return vehicleConfigurationRepository.findAll(request.countryId!!)
+////        return Uni.combine().all()
+////            .unis(authenticationService.authenticate(), vehicleConfigurationRepository.findAll(request.countryId!!))
+////            .combinedWith { t, u -> u }
+////            .onItem().transformToMulti { Multi.createFrom().iterable(it) }
+//
+//        return Uni.createFrom()
+//            .item(AuthorizationEntitlement("Ok"))
+//            .onItem()
+//            .delayIt()
+//            .by(Duration.ofMillis(1500))
+//    }
 }
