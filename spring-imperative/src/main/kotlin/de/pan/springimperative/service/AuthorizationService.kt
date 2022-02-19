@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 
-@FeignClient(value = "authorization", url = "http://localhost:8090/api/")
+@FeignClient(value = "authorization", url = "http://192.168.178.26:8090/api/")
 interface AuthorizationService {
     @RequestMapping(method = [RequestMethod.GET], value = ["/auth"])
     fun auth(@RequestHeader("Authorization") authorization: String): AuthorizationEntitlement

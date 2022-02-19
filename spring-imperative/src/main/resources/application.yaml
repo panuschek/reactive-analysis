@@ -1,5 +1,17 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/vehicle
+    url: jdbc:postgresql://192.168.178.26:5432/vehicle
     username: vc
     password: secret
+    tomcat:
+      max-active: 5000
+
+feign:
+  httpclient:
+    max-connections: 20
+    max-connections-per-route: 20
+
+server:
+  tomcat:
+    threads:
+      max: 10

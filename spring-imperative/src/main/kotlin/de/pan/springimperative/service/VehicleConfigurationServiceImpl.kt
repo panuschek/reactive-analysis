@@ -15,5 +15,7 @@ class VehicleConfigurationServiceImpl(
 
         return vehicleConfigurationRepository.findByCountryId(countryId)
             .filter { it.countryIds.any { it in authorizedCountries } }
+
+//        return vehicleConfigurationRepository.findByCountryId(countryId)
     }
 }

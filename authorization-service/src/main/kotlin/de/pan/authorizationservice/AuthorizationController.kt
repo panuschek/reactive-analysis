@@ -17,6 +17,7 @@ class AuthorizationController {
         val jwt = JWT.decode(authHeader.replace("Bearer ", ""))
         val rolesInGroup = jwt.getClaim("groups").asArray(Number::class.java)
 
+        Thread.sleep(5000)
         return AuthorizationEntitlement(rolesInGroup)
     }
 }

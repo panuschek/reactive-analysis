@@ -1,10 +1,16 @@
 micronaut:
   application:
     name: micronautReactive
+  http:
+    client:
+      num-of-threads: 50
+  netty:
+    event-loops:
+      num-threads: 200
 r2dbc:
   datasources:
     default:
       dialect: POSTGRES
-      url: r2dbc:postgresql://localhost:5432/vehicle
+      url: r2dbc:postgresql://192.168.178.26:5432/vehicle
       username: vc
       password: secret
