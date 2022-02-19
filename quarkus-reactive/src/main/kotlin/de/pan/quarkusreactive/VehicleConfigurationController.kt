@@ -3,7 +3,7 @@ package de.pan.quarkusreactive
 import de.pan.quarkusreactive.api.entity.VehicleConfiguration
 import de.pan.quarkusreactive.api.request.VehicleConfigurationRequest
 import de.pan.quarkusreactive.service.VehicleConfigurationService
-import io.smallrye.mutiny.Multi
+import io.smallrye.mutiny.Uni
 import org.jboss.resteasy.reactive.RestHeader
 import javax.ws.rs.Consumes
 import javax.ws.rs.POST
@@ -19,8 +19,12 @@ class VehicleConfigurationController(
     @Path("vehicleconfigurations")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    fun vehicleConfigurations(@RestHeader("Authorization") authToken: String, request: VehicleConfigurationRequest): Multi<VehicleConfiguration> {
-        return vehicleConfigurationService.getVehicleConfigurations(authToken, request.countryId!!)
+    fun vehicleConfigurations(
+        @RestHeader("Authorization") authToken: String,
+        @RestHeader("UserId") userId: String,
+        request: VehicleConfigurationRequest
+    ): Uni<List<VehicleConfiguration>> {
+        return vehicleConfigurationService.getVehicleConfigurations(userId, authToken, request.countryId!!)
     }
 
 //    @GET
