@@ -39,10 +39,9 @@ class VehicleConfigurationController(
         return vehicleConfigurationRepository.findByCountryId(request.countryId!!)
     }
 
-    @POST
-    @Path("chainedCalls")
-    fun chainedCalls(request: VehicleConfigurationRequest): Multi<VehicleConfiguration> {
-        return mockService.doWork()
-            .onItem().transformToMulti { vehicleConfigurationRepository.findByCountryId(request.countryId!!) }
+    @GET
+    @Path("largeResponse")
+    fun chainedCalls(): Multi<Int> {
+        return Multi.createFrom().iterable(mockService.getPrimeNumbers().take(1000).asIterable())
     }
 }
