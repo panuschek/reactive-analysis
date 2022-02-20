@@ -1,15 +1,9 @@
 micronaut:
   application:
     name: micronautReactive
-#  http:
-#    client:
-#      num-of-threads: 50
-#  netty:
-#    event-loops:
-#      num-threads: 200
 
 webservice:
-  url: http://localhost:8090
+  url: http://192.168.178.26:8090
 
 r2dbc:
   datasources:

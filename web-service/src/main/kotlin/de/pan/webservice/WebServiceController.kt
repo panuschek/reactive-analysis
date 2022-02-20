@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 class WebServiceController {
     @GetMapping("dummy")
     fun getCall(): ResponseEntity<String> {
-        Thread.sleep(150)
+        Thread.sleep(300)
         return ResponseEntity.ok("ok")
     }
 }
