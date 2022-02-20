@@ -6,5 +6,10 @@ spring:
     tomcat:
       max-active: 5000
 
+server:
+  tomcat:
+    threads:
+      max: 100
+
 webservice:
   url: 192.168.178.26:8090

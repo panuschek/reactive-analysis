@@ -27,8 +27,8 @@ class VehicleConfigurationController(
         return webService.request()
     }
 
-    @GetMapping("queryDatabase")
-    fun queryDatabase(request: VehicleConfigurationRequest): List<VehicleConfiguration> {
+    @PostMapping("queryDatabase")
+    fun queryDatabase(@RequestBody request: VehicleConfigurationRequest): List<VehicleConfiguration> {
         return vehicleConfigurationRepository.findByCountryId(request.countryId!!)
     }
 

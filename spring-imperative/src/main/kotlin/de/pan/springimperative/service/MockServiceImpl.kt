@@ -9,7 +9,11 @@ class MockServiceImpl : MockService {
     override fun doWork(): String {
         executionCounter++
 
-        if(executionCounter in 1001..1099) {
+        if(executionCounter > 1100) {
+            executionCounter = 0
+        }
+
+        if(executionCounter >= 1000) {
             Thread.sleep(1500)
         }
 
