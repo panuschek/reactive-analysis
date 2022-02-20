@@ -2,7 +2,6 @@ package de.pan.quarkusreactive.repository
 
 import de.pan.quarkusreactive.api.entity.VehicleConfiguration
 import io.smallrye.mutiny.Multi
-import io.smallrye.mutiny.Uni
 import io.vertx.mutiny.pgclient.PgPool
 import io.vertx.mutiny.sqlclient.Row
 import io.vertx.mutiny.sqlclient.Tuple
@@ -13,11 +12,11 @@ class VehicleConfigurationRepository(
     private val pgPool: PgPool
 ) {
 
-    fun findAll(countryId: Int): Uni<List<VehicleConfiguration>> {
+    fun findByCountryId(countryId: Int): Multi<VehicleConfiguration> {
         return pgPool.preparedQuery("SELECT * FROM vehicle_configuration WHERE $1 = ANY(country_ids)")
             .execute(Tuple.of(countryId))
             .onItem().transform { row -> row.map { mapRowToVehicleConfiguration(it) } }
-//            .onItem().transformToMulti { Multi.createFrom().iterable(it) }
+            .onItem().transformToMulti { Multi.createFrom().iterable(it) }
     }
 
     private fun mapRowToVehicleConfiguration(row: Row): VehicleConfiguration {

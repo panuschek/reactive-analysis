@@ -1,4 +1,3 @@
-import uuid
 from locust import HttpUser, task, events
 import random
 
@@ -7,11 +6,20 @@ def on_test_start(environment, **kwargs):
     random.seed(1337)
 
 class VehicleConfigurationUser(HttpUser):
-    def on_start(self):
-        self.userId = str(uuid.uuid4())
-
     @task
-    def get_vehicles(self):
-        jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJQQU5VU0NIIiwiZ3JvdXBzIjpbMSwyLDMsNCw1LDYsNyw4LDksMjAsMjEsMjIsMjMsMjQsMjUsMjYsMjcsMjgsMjksNDAsNDEsNDIsNDMsNDQsNDUsNDYsNDcsNDgsNDksNTAsNTEsNTIsNTMsNTQsNTUsNTYsNTcsNTgsNTksNzAsNzEsNzIsNzMsNzQsNzUsNzYsNzcsNzgsNzksOTAsOTEsOTIsOTMsOTQsOTUsOTYsOTcsOTgsOTldfQ.MUZb4JnNPhxS3Cvd2d_V76hQ3cODdEhK8E6fFGu2X1k"
+    def sleep(self):
+        self.client.get("/api/sleep")
+
+    @task(0)
+    def api_call(self):
+        self.client.get("/api/apiCall")
+
+    @task(0)
+    def query_database(self):
         country_id = random.randint(1, 100)
-        self.client.post("/api/vehicleconfigurations", json={ "countryId": country_id}, headers={ "Authorization": "Bearer " + jwt, "UserId": self.userId })
+        self.client.post("/api/vehicleconfigurations", json={ "countryId": country_id})
+
+    @task(0)
+    def chained_calls(self):
+        country_id = random.randint(1, 100)
+        self.client.post("/api/vehicleconfigurations", json={ "countryId": country_id})

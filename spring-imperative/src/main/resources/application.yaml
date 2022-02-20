@@ -6,12 +6,5 @@ spring:
     tomcat:
       max-active: 5000
 
-feign:
-  httpclient:
-    max-connections: 20
-    max-connections-per-route: 20
-
-server:
-  tomcat:
-    threads:
-      max: 10
+webservice:
+  url: 192.168.178.26:8090

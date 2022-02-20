@@ -2,47 +2,47 @@ package de.pan.quarkusreactive
 
 import de.pan.quarkusreactive.api.entity.VehicleConfiguration
 import de.pan.quarkusreactive.api.request.VehicleConfigurationRequest
-import de.pan.quarkusreactive.service.VehicleConfigurationService
+import de.pan.quarkusreactive.repository.VehicleConfigurationRepository
+import de.pan.quarkusreactive.service.MockService
+import de.pan.quarkusreactive.service.WebService
+import io.smallrye.mutiny.Multi
 import io.smallrye.mutiny.Uni
-import org.jboss.resteasy.reactive.RestHeader
-import javax.ws.rs.Consumes
+import org.eclipse.microprofile.rest.client.inject.RestClient
+import java.time.Duration
+import javax.ws.rs.GET
 import javax.ws.rs.POST
 import javax.ws.rs.Path
-import javax.ws.rs.Produces
-import javax.ws.rs.core.MediaType
 
 @Path("api")
 class VehicleConfigurationController(
-    private val vehicleConfigurationService: VehicleConfigurationService
+    private val vehicleConfigurationRepository: VehicleConfigurationRepository,
+    @RestClient
+    private val webService: WebService,
+    private val mockService: MockService
 ) {
-    @POST
-    @Path("vehicleconfigurations")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    fun vehicleConfigurations(
-        @RestHeader("Authorization") authToken: String,
-        @RestHeader("UserId") userId: String,
-        request: VehicleConfigurationRequest
-    ): Uni<List<VehicleConfiguration>> {
-        return vehicleConfigurationService.getVehicleConfigurations(userId, authToken, request.countryId!!)
+    @GET
+    @Path("sleep")
+    fun sleep(): Uni<String> {
+        return Uni.createFrom().item("ok")
+            .onItem().delayIt().by(Duration.ofMillis(150))
     }
 
-//    @GET
-//    @Path("vehicleconfigurations")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    fun vehicleConfigurations(): Uni<AuthorizationEntitlement>? {
-////        return authenticationService.authenticate()
-////        return vehicleConfigurationRepository.findAll(request.countryId!!)
-////        return Uni.combine().all()
-////            .unis(authenticationService.authenticate(), vehicleConfigurationRepository.findAll(request.countryId!!))
-////            .combinedWith { t, u -> u }
-////            .onItem().transformToMulti { Multi.createFrom().iterable(it) }
-//
-//        return Uni.createFrom()
-//            .item(AuthorizationEntitlement("Ok"))
-//            .onItem()
-//            .delayIt()
-//            .by(Duration.ofMillis(1500))
-//    }
+    @GET
+    @Path("apiCall")
+    fun apiCall(): Uni<String> {
+        return webService.request()
+    }
+
+    @POST
+    @Path("queryDatabase")
+    fun queryDatabase(request: VehicleConfigurationRequest): Multi<VehicleConfiguration> {
+        return vehicleConfigurationRepository.findByCountryId(request.countryId!!)
+    }
+
+    @POST
+    @Path("chainedCalls")
+    fun chainedCalls(request: VehicleConfigurationRequest): Multi<VehicleConfiguration> {
+        return mockService.doWork()
+            .onItem().transformToMulti { vehicleConfigurationRepository.findByCountryId(request.countryId!!) }
+    }
 }
